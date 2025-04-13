@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<resources>
+    <string name="main_screen_title">MODO CONCIENCIA</string>
+
+    <string name="task_detail_title">Detalle de la Tarea: </string>
+
+    <string name="create_task_screen_title">Crea una nueva tarea: </string>
+    <string name="create_task_add_title">Título:</string>
+    <string name="create_task_add_description">Descripción:</string>
+    <string name="create_task_save_new_task">Guardar</string>
+    <string name="create_task_go_back">Volver </string>
+</resources>

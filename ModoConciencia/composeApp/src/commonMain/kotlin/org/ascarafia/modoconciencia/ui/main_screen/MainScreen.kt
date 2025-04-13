@@ -1,0 +1,102 @@
+package org.ascarafia.modoconciencia.ui.main_screen
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import modoconciencia.composeapp.generated.resources.*
+import org.ascarafia.modoconciencia.ui.main_screen.views.TimerView
+import org.ascarafia.modoconciencia.ui.navigation.NavigationDrawer
+import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MainScreen(navController: NavController) {
+
+    val mainViewModel: MainViewModel = koinViewModel<MainViewModel>()
+
+    val time by mainViewModel.timeRemaining.collectAsState()
+    val isRunning by mainViewModel.isRunning.collectAsState()
+
+    var isDrawerOpen by remember { mutableStateOf(false) }
+
+    MaterialTheme {
+        NavigationDrawer(
+            isOpen = isDrawerOpen,
+            onClose = { isDrawerOpen = false },
+            drawerContent = {
+                Text("Opción 1")
+                Spacer(Modifier.height(8.dp))
+                Text("Opción 2")
+                Spacer(Modifier.height(16.dp))
+            }
+        ) {
+            Scaffold(
+                topBar = {
+                    CenterAlignedTopAppBar(
+                        colors = topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            titleContentColor = MaterialTheme.colorScheme.primary,
+                        ),
+                        title = {
+                            Text(
+                                stringResource(Res.string.main_screen_title),
+                                textAlign = TextAlign.Center
+                            )
+                        },
+                        actions = {
+                            IconButton(
+                                onClick = { isDrawerOpen = true }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Menu,
+                                    contentDescription = "MenuDrawer"
+                                )
+                            }
+                        }
+                    )
+                },
+
+                floatingActionButton = {
+                    FloatingActionButton(
+                        onClick = {
+                            navController.navigate("createTask")
+                        }
+                    ) {
+                        Icon(Icons.Default.Add, contentDescription = "Agregar Tarea")
+                    }
+                }
+            ) { innerPadding ->
+
+                Box (
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){
+                    TimerView(
+                        modifier = Modifier
+                            .padding(25.dp)
+                            .aspectRatio(1F),
+                        timeMillis = time,
+                        totalTime = mainViewModel.timerValue.value,
+                        isRunning = isRunning,
+                        onTimeChanged = { mainViewModel.setInitialTime(it) },
+                        onPlayPauseClicked = {
+                            if (isRunning) mainViewModel.pauseTimer()
+                            else mainViewModel.startTimer()
+                        },
+                    )
+                }
+            }
+        }
+    }
+}
