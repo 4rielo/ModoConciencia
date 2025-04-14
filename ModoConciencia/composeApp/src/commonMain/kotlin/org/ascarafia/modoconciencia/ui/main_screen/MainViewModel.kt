@@ -13,7 +13,7 @@ class MainViewModel: ViewModel() {
     private val _timerValue = MutableStateFlow(600000L)
     val timerValue = _timerValue.asStateFlow()
 
-    private val _timeRemaining = MutableStateFlow(10000L) // En milisegundos
+    private val _timeRemaining = MutableStateFlow(600000L)
     val timeRemaining = _timeRemaining.asStateFlow()
 
     private val _isRunning = MutableStateFlow(false)
@@ -22,7 +22,7 @@ class MainViewModel: ViewModel() {
     private var timerJob: Job? = null
 
     fun setInitialTime(seconds: Long) {
-        _timerValue.value = seconds * 1000L
+        _timerValue.value = seconds
         resetTimer()
     }
 

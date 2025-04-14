@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import modoconciencia.composeapp.generated.resources.*
 import org.ascarafia.modoconciencia.ui.main_screen.views.TimerView
 import org.ascarafia.modoconciencia.ui.navigation.NavigationDrawer
+import org.ascarafia.modoconciencia.ui.theme.AppTheme
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -28,7 +29,7 @@ fun MainScreen(navController: NavController) {
 
     var isDrawerOpen by remember { mutableStateOf(false) }
 
-    MaterialTheme {
+    AppTheme {
         NavigationDrawer(
             isOpen = isDrawerOpen,
             onClose = { isDrawerOpen = false },
@@ -43,8 +44,8 @@ fun MainScreen(navController: NavController) {
                 topBar = {
                     CenterAlignedTopAppBar(
                         colors = topAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            titleContentColor = MaterialTheme.colorScheme.primary,
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            titleContentColor = MaterialTheme.colorScheme.onPrimary,
                         ),
                         title = {
                             Text(
@@ -58,6 +59,7 @@ fun MainScreen(navController: NavController) {
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Menu,
+                                    tint = MaterialTheme.colorScheme.onPrimary,
                                     contentDescription = "MenuDrawer"
                                 )
                             }
@@ -65,23 +67,23 @@ fun MainScreen(navController: NavController) {
                     )
                 },
 
-                floatingActionButton = {
-                    FloatingActionButton(
-                        onClick = {
-                            navController.navigate("createTask")
-                        }
-                    ) {
-                        Icon(Icons.Default.Add, contentDescription = "Agregar Tarea")
-                    }
-                }
+//                floatingActionButton = {
+//                    FloatingActionButton(
+//                        onClick = {
+//                            navController.navigate("createTask")
+//                        }
+//                    ) {
+//                        Icon(Icons.Default.Add, contentDescription = "Agregar Tarea")
+//                    }
+//                }
             ) { innerPadding ->
 
-                Box (
+                Column (
                     modifier = Modifier
                         .padding(innerPadding)
                         .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ){
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     TimerView(
                         modifier = Modifier
                             .padding(25.dp)

@@ -13,7 +13,8 @@ fun AppTheme(
     content: @Composable () -> Unit
 ) {
     val LightColorScheme = lightColorScheme(
-        primary = Color(0xFF6200EE),
+        primaryContainer = Color(0xFF5CB7BB),
+        primary = Color(0xFF5CB7BB),
         secondary = Color(0xFF03DAC5),
         background = Color.White,
         surface = Color.White,
@@ -22,7 +23,8 @@ fun AppTheme(
     )
 
     val DarkColorScheme = darkColorScheme(
-        primary = Color(0xFFBB86FC),
+        primaryContainer = Color(0xFF018E96),
+        primary = Color(0xFF018E96),
         secondary = Color(0xFF03DAC6),
         background = Color(0xFF121212),
         surface = Color(0xFF121212),
