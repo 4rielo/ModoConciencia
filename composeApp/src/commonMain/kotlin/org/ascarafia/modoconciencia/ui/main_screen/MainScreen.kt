@@ -17,6 +17,7 @@ import modoconciencia.composeapp.generated.resources.*
 import org.ascarafia.modoconciencia.ui.main_screen.views.TimerView
 import org.ascarafia.modoconciencia.ui.navigation.NavigationDrawer
 import org.ascarafia.modoconciencia.ui.theme.AppTheme
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,14 +56,9 @@ fun MainScreen(navController: NavController) {
                             ),
                             title = {
                                 Image(
-                                    imageVector = Res.drawable.compose_multiplatform,
-                                    contentDescription = null,
-                                    modifier = Modifier
+                                    painterResource(Res.drawable.topbarlogo2),
+                                    contentDescription = null
                                 )
-//                                Text(
-//                                    stringResource(Res.string.main_screen_title),
-//                                    textAlign = TextAlign.Center
-//                                )
                             },
                             actions = {
                                 IconButton(
