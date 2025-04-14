@@ -21,8 +21,8 @@ class MainViewModel: ViewModel() {
 
     private var timerJob: Job? = null
 
-    fun setInitialTime(seconds: Long) {
-        _timerValue.value = seconds
+    fun setInitialTime(millis: Long) {
+        _timerValue.value = millis
         resetTimer()
     }
 
@@ -34,6 +34,10 @@ class MainViewModel: ViewModel() {
             while (_timeRemaining.value > 0 && _isRunning.value) {
                 delay(100)
                 _timeRemaining.value -= 100
+            }
+            if (_timeRemaining.value <= 0) {
+                //TODO: Finished timer
+                resetTimer()
             }
             _isRunning.value = false
         }

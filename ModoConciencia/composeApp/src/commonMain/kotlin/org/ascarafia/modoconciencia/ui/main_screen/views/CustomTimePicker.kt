@@ -20,9 +20,11 @@ fun CustomTimePicker(modifier: Modifier, currentTime: Int, onTimeChanged: (Int) 
             selected = minutes,
             maxValue = 99,
             onSelected = {
-                minutes = it
-                val totalTime = minutes*60 + seconds
-                onTimeChanged(totalTime)
+                if (minutes != it) {
+                    minutes = it
+                    val totalTime = minutes * 60 + seconds
+                    onTimeChanged(totalTime)
+                }
             }
         )
 
@@ -37,9 +39,11 @@ fun CustomTimePicker(modifier: Modifier, currentTime: Int, onTimeChanged: (Int) 
             selected = seconds,
             maxValue = 59,
             onSelected = {
-                seconds = it
-                val totalTime = minutes*60 + seconds
-                onTimeChanged(totalTime)
+                if (seconds != it) {
+                    seconds = it
+                    val totalTime = minutes * 60 + seconds
+                    onTimeChanged(totalTime)
+                }
             }
         )
     }

@@ -25,6 +25,8 @@ fun SimpleNumberPicker(
     val items = (0..maxValue).map { it.toString().padStart(2, '0') }
     val state = rememberLazyListState()
 
+    val itemSize = (fontSize.value + 8).dp
+
     LaunchedEffect(Unit) {
         state.scrollToItem(selected)
     }
@@ -45,7 +47,7 @@ fun SimpleNumberPicker(
         state = state,
         verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .height(40.dp)
+            .height(itemSize)
     ) {
         items(items) { item ->
             Box(

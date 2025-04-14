@@ -1,5 +1,6 @@
 package org.ascarafia.modoconciencia.ui.main_screen
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -42,29 +43,31 @@ fun MainScreen(navController: NavController) {
         ) {
             Scaffold(
                 topBar = {
-                    CenterAlignedTopAppBar(
-                        colors = topAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                        ),
-                        title = {
-                            Text(
-                                stringResource(Res.string.main_screen_title),
-                                textAlign = TextAlign.Center
-                            )
-                        },
-                        actions = {
-                            IconButton(
-                                onClick = { isDrawerOpen = true }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Menu,
-                                    tint = MaterialTheme.colorScheme.onPrimary,
-                                    contentDescription = "MenuDrawer"
+                    AnimatedVisibility(!isRunning) {
+                        CenterAlignedTopAppBar(
+                            colors = topAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                            ),
+                            title = {
+                                Text(
+                                    stringResource(Res.string.main_screen_title),
+                                    textAlign = TextAlign.Center
                                 )
+                            },
+                            actions = {
+                                IconButton(
+                                    onClick = { isDrawerOpen = true }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Menu,
+                                        tint = MaterialTheme.colorScheme.onPrimary,
+                                        contentDescription = "MenuDrawer"
+                                    )
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
                 },
 
 //                floatingActionButton = {
