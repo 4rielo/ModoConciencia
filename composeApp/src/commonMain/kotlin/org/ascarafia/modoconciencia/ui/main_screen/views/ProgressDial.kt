@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProgressDial(
-    progress: Float,
+    progress: State<Float>,
     strokeWidth: Dp = 30.dp,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
@@ -29,7 +29,7 @@ fun ProgressDial(
         modifier = modifier
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
-            val sweepAngle = -360 * progress
+            val sweepAngle = -360 * progress.value
             val diameterOffset = strokeWidth.toPx() / 2
             drawArc(
                 color = Color.LightGray,

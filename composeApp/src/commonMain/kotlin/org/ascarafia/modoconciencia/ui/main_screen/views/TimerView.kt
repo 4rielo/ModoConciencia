@@ -10,7 +10,6 @@ import androidx.compose.ui.*
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.*
 import org.ascarafia.modoconciencia.domain.use_cases.TimeFormatter
-import kotlin.math.roundToLong
 
 @Composable
 fun TimerView(
@@ -29,7 +28,7 @@ fun TimerView(
         1F
     }
 
-    val progress by animateFloatAsState(
+    val progress = animateFloatAsState(
         targetValue = timeMillis.value / progressMaxValue,
         animationSpec = tween(100),
         label = "progress"
@@ -38,28 +37,9 @@ fun TimerView(
     ProgressDial(
         modifier = modifier,
         progress = progress,
-//        onRotate = { angle ->
-//            if (!isRunning.value) {
-//                val newTimerValue = totalTime.value + (angle * 5000)
-//                val newValue: Long = if (newTimerValue > 0) {
-//                    newTimerValue.roundToLong()
-//                } else {
-//                    0
-//                }
-//                onTimeChanged(newValue)
-//            }
-//        },
-//        timerValue = totalTime
+
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-
-//            Button(
-//                onClick = { onTimeChanged(totalTime.value + 1000L) },
-//            ) {
-//                Text("Increase total timer Value")
-//            }
-
-            //Text(totalTime.value.toString())
 
             if (isRunning.value) {
                 Text(
