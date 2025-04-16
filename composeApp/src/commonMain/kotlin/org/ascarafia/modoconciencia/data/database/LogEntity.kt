@@ -2,23 +2,23 @@ package org.ascarafia.modoconciencia.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.ascarafia.modoconciencia.domain.model.Task
+import org.ascarafia.modoconciencia.domain.model.LogItem
 
 @Entity
-data class TaskEntity (
+data class LogEntity (
     @PrimaryKey(autoGenerate = false) val id: String,
     val title: String,
     val body: String,
-    val isCompleted: Boolean,
+    val date: String,
     val latitude: Double? = null,
     val longitude: Double? = null
 ) {
-    fun toTask(): Task {
-        return Task(
+    fun toLog(): LogItem {
+        return LogItem(
             id = id,
             body = body,
             title = title,
-            isCompleted = isCompleted,
+            date = date,
             latitude = latitude,
             longitude = longitude
         )

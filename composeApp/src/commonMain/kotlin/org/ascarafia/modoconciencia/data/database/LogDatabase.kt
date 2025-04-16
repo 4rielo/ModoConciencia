@@ -5,16 +5,16 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [TaskEntity::class],
+    entities = [LogEntity::class],
     version = 1
 )
 @ConstructedBy(
-    value = TaskDataBaseConstructor::class
+    value = LogDataBaseConstructor::class
 )
-abstract class TaskDatabase: RoomDatabase() {
-    abstract val taskDao: TaskDAO
+abstract class LogDatabase: RoomDatabase() {
+    abstract val logDao: LogDAO
 
     companion object {
-        const val DB_NAME = "oneTreeTask.db"
+        const val DB_NAME = "modoConciencia.db"
     }
 }

@@ -1,0 +1,43 @@
+package org.ascarafia.modoconciencia.ui.main_screen.views
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.EditNote
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+
+@Composable
+fun DrawerMenu(modifier: Modifier = Modifier, navController: NavController) {
+    Column(
+        modifier
+    ) {
+
+        Row {
+            Icon(
+                Icons.Filled.EditNote,
+                contentDescription = "Create new Log",
+                tint = MaterialTheme.colorScheme.onSecondary,
+            )
+            Text(
+                text = "Bitácora",
+                color = MaterialTheme.colorScheme.onSecondary,
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate("bitacora")
+                    }
+            )
+        }
+
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            "Opción 2",
+            color = MaterialTheme.colorScheme.onSecondary)
+        Spacer(Modifier.height(16.dp))
+    }
+}

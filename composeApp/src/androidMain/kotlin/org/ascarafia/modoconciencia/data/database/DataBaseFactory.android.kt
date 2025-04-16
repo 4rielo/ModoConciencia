@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 actual class DataBaseFactory(
     private val context: Context
 ) {
-    actual fun create(): RoomDatabase.Builder<TaskDatabase> {
+    actual fun create(): RoomDatabase.Builder<LogDatabase> {
         val appContext = context.applicationContext
-        val dbFile = appContext.getDatabasePath(TaskDatabase.DB_NAME)
+        val dbFile = appContext.getDatabasePath(LogDatabase.DB_NAME)
 
         return Room.databaseBuilder(
             context = appContext,

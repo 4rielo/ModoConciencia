@@ -5,10 +5,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.ascarafia.modoconciencia.ui.main_screen.MainScreenRoot
-import org.ascarafia.modoconciencia.ui.task_list.CreateTaskScreen
-import org.ascarafia.modoconciencia.ui.task_list.TaskDetailScreen
+import org.ascarafia.modoconciencia.ui.log_list.CreateLogScreenRoot
+import org.ascarafia.modoconciencia.ui.log_list.LogsListScreenRoot
+import org.ascarafia.modoconciencia.ui.log_list.LogDetailScreenRoot
+import org.ascarafia.modoconciencia.ui.log_list.LogListViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.ascarafia.modoconciencia.ui.task_list.TaskListViewModel
 import org.ascarafia.modoconciencia.ui.theme.AppTheme
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -16,7 +17,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Preview
 fun App() {
     val navController = rememberNavController()
-    val taskViewModel: TaskListViewModel = koinViewModel<TaskListViewModel>()
+    val logsViewModel: LogListViewModel = koinViewModel<LogListViewModel>()
 
     AppTheme {
         NavHost(navController = navController, startDestination = "mainScreen") {
@@ -24,13 +25,18 @@ fun App() {
                 MainScreenRoot(navController)
             }
 
-            composable("taskDetail/{taskId}") { backStackEntry ->
-                val taskId = backStackEntry.arguments?.getString("taskId")
-                TaskDetailScreen(navController, taskId, taskViewModel)
+            composable("bitacora") {
+                LogsListScreenRoot(navController, logsViewModel)
             }
 
-            composable("createTask") {
-                CreateTaskScreen(navController, taskViewModel)
+            composable("logDetail/{logId}") { backStackEntry ->
+                val logId = backStackEntry.arguments?.getString("logId")
+                LogDetailScreenRoot(navController, logId, logsViewModel)
+            }
+
+            composable("createLog/{logId}") { backStackEntry ->
+                val logId = backStackEntry.arguments?.getString("logId")
+                CreateLogScreenRoot(navController, logId, logsViewModel)
             }
         }
     }

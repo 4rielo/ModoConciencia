@@ -4,11 +4,11 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import org.ascarafia.modoconciencia.application.location.LocationProvider
 import org.ascarafia.modoconciencia.application.location.LocationProviderFactory
 import org.ascarafia.modoconciencia.data.database.DataBaseFactory
-import org.ascarafia.modoconciencia.data.database.TaskDatabase
-import org.ascarafia.modoconciencia.domain.repository.TaskRepository
-import org.ascarafia.modoconciencia.data.repository.TaskRepositoryImpl
+import org.ascarafia.modoconciencia.data.database.LogDatabase
+import org.ascarafia.modoconciencia.domain.repository.LogRepository
+import org.ascarafia.modoconciencia.data.repository.LogRepositoryImpl
 import org.ascarafia.modoconciencia.ui.main_screen.MainViewModel
-import org.ascarafia.modoconciencia.ui.task_list.TaskListViewModel
+import org.ascarafia.modoconciencia.ui.log_list.LogListViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.core.module.dsl.*
@@ -21,7 +21,7 @@ expect val platformModule: Module
 val sharedModules: List<Module> get() = listOf( viewModelsModule, dataBaseModule, repositoryModule, hardwareModule )
 
 val viewModelsModule = module {
-    viewModelOf(::TaskListViewModel)
+    viewModelOf(::LogListViewModel)
     viewModelOf(::MainViewModel)
 }
 
@@ -32,12 +32,12 @@ val dataBaseModule = module {
             .build()
     }
     single {
-        get<TaskDatabase>().taskDao
+        get<LogDatabase>().logDao
     }
 }
 
 val repositoryModule = module {
-    singleOf(::TaskRepositoryImpl).bind<TaskRepository>()
+    singleOf(::LogRepositoryImpl).bind<LogRepository>()
 }
 
 val hardwareModule = module {

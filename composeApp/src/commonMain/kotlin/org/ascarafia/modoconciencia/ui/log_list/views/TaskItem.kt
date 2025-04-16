@@ -1,4 +1,4 @@
-package org.ascarafia.modoconciencia.ui.task_list.views
+package org.ascarafia.modoconciencia.ui.log_list.views
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismissBox
@@ -28,25 +27,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import org.ascarafia.modoconciencia.domain.model.Task
+import org.ascarafia.modoconciencia.domain.model.LogItem
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun SwipeToDeleteItem(task: Task, onTaskCheckedChange: (Boolean) -> Unit, onDelete: () -> Unit, onClick: () -> Unit) {
+fun SwipeToDeleteItem(log: LogItem, onTaskCheckedChange: (Boolean) -> Unit, onDelete: () -> Unit, onClick: () -> Unit) {
     val dismissState = rememberSwipeToDismissBoxState (
         confirmValueChange = {
-            when (it) {
-                SwipeToDismissBoxValue.StartToEnd -> {
-                    onTaskCheckedChange(task.isCompleted)
-                    false
-                }
-                SwipeToDismissBoxValue.EndToStart -> {
-                    onDelete()
-                    true
-                }
-                else -> false
-            }
+            false
+//            when (it) {
+//                SwipeToDismissBoxValue.StartToEnd -> {
+//                    onTaskCheckedChange(log.isCompleted)
+//                    false
+//                }
+//                SwipeToDismissBoxValue.EndToStart -> {
+//                    onDelete()
+//                    true
+//                }
+//                else -> false
+//            }
         }
     )
 
@@ -89,13 +89,13 @@ fun SwipeToDeleteItem(task: Task, onTaskCheckedChange: (Boolean) -> Unit, onDele
             }
         },
         content = {
-            TaskItem(task = task, onTaskCheckedChange = onTaskCheckedChange, onClick = onClick)
+            TaskItem(log = log, onTaskCheckedChange = onTaskCheckedChange, onClick = onClick)
         }
     )
 }
 
 @Composable
-fun TaskItem(task: Task, onTaskCheckedChange: (Boolean) -> Unit, onClick: () -> Unit) {
+fun TaskItem(log: LogItem, onTaskCheckedChange: (Boolean) -> Unit, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,14 +105,14 @@ fun TaskItem(task: Task, onTaskCheckedChange: (Boolean) -> Unit, onClick: () -> 
             .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(
-            checked = task.isCompleted,
-            onCheckedChange = onTaskCheckedChange
-        )
+//        Checkbox(
+//            checked = log.isCompleted,
+//            onCheckedChange = onTaskCheckedChange
+//        )
         Spacer(modifier = Modifier.width(8.dp))
         Column {
-            Text(text = task.title, style = MaterialTheme.typography.headlineMedium)
-            Text(text = task.body, style = MaterialTheme.typography.bodyMedium)
+            Text(text = log.title, style = MaterialTheme.typography.headlineMedium)
+            Text(text = log.body, style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

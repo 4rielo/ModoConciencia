@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import modoconciencia.composeapp.generated.resources.*
+import org.ascarafia.modoconciencia.ui.main_screen.views.DrawerMenu
 import org.ascarafia.modoconciencia.ui.main_screen.views.TimerView
 import org.ascarafia.modoconciencia.ui.navigation.NavigationDrawer
 import org.ascarafia.modoconciencia.ui.theme.AppTheme
@@ -31,7 +32,8 @@ fun MainScreenRoot(
         timerValue = mainViewModel.timerValue.collectAsState(),
         changeTimerValue = { mainViewModel.setInitialTime(it) },
         timerStart = { mainViewModel.startTimer() },
-        timerPause = { mainViewModel.pauseTimer() }
+        timerPause = { mainViewModel.pauseTimer() },
+        drawerMenu = { modifier -> DrawerMenu(modifier, navController) }
     )
 }
 
@@ -43,25 +45,22 @@ fun MainScreen(
     timerValue: State<Long>,
     changeTimerValue: (Long) -> Unit,
     timerStart: () -> Unit,
-    timerPause: () -> Unit
+    timerPause: () -> Unit,
+    drawerMenu: @Composable (Modifier) -> Unit
 ) {
 
     var isDrawerOpen by remember { mutableStateOf(false) }
+    var paddingValues: PaddingValues? = null
 
     AppTheme {
         NavigationDrawer(
             isOpen = isDrawerOpen,
             onClose = { isDrawerOpen = false },
             drawerContent = {
-                Column(
+                drawerMenu(
                     Modifier
-                        .padding(top = 50.dp)
-                ) {
-                    Text("Opción 1")
-                    Spacer(Modifier.height(8.dp))
-                    Text("Opción 2")
-                    Spacer(Modifier.height(16.dp))
-                }
+                        .padding(top = (paddingValues?.calculateTopPadding()?:50.dp))
+                )
             }
         ) {
             Scaffold(
@@ -107,6 +106,8 @@ fun MainScreen(
 //                    }
 //                }
             ) { innerPadding ->
+
+                paddingValues = innerPadding
 
                 Column (
                     modifier = Modifier
