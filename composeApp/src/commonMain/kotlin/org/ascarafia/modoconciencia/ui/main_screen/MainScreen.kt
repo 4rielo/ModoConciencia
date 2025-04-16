@@ -53,10 +53,15 @@ fun MainScreen(
             isOpen = isDrawerOpen,
             onClose = { isDrawerOpen = false },
             drawerContent = {
-                Text("Opción 1")
-                Spacer(Modifier.height(8.dp))
-                Text("Opción 2")
-                Spacer(Modifier.height(16.dp))
+                Column(
+                    Modifier
+                        .padding(top = 50.dp)
+                ) {
+                    Text("Opción 1")
+                    Spacer(Modifier.height(8.dp))
+                    Text("Opción 2")
+                    Spacer(Modifier.height(16.dp))
+                }
             }
         ) {
             Scaffold(

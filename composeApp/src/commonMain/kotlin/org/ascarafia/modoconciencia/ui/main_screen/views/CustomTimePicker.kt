@@ -18,14 +18,11 @@ fun CustomTimePicker(
     onTimeChanged: (Int) -> Unit,
     fontSize: TextUnit
 ) {
-    val timeInSeconds = ((currentTime.value/1000).toInt())
     val minutes = mutableStateOf(((currentTime.asLongState().value/1000) /60).toInt() )
-//        mutableStateOf((timeInSeconds/60)) }
     val seconds = mutableStateOf(((currentTime.asLongState().value/1000) %60).toInt() )
-    //mutableStateOf((timeInSeconds%60))
 
     Row (
-        Modifier
+        modifier
             .padding(0.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -16,14 +16,15 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun NavigationDrawer(
+    modifier: Modifier = Modifier,
     isOpen: Boolean,
     onClose: () -> Unit,
     drawerWidth: Dp = 250.dp,
-    drawerContent: @Composable ColumnScope.() -> Unit,
+    drawerContent: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
 
         content()
@@ -59,7 +60,7 @@ fun NavigationDrawer(
                     .offset(x = 10.dp),
                 contentAlignment = Alignment.CenterEnd
             ) {
-                Column(
+                Box(
                     Modifier
                         .width(drawerWidth)
                         .fillMaxHeight()
