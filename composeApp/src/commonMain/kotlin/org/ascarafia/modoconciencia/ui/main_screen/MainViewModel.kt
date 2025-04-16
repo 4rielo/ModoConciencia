@@ -48,7 +48,7 @@ class MainViewModel: ViewModel() {
         timerJob?.cancel()
     }
 
-    fun resetTimer() {
+    private fun resetTimer() {
         pauseTimer()
         _timeRemaining.value = _timerValue.value
     }

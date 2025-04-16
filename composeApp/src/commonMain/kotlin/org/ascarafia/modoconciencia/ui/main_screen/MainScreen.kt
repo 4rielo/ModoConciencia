@@ -10,7 +10,6 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import modoconciencia.composeapp.generated.resources.*
@@ -20,14 +19,32 @@ import org.ascarafia.modoconciencia.ui.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
+
+@Composable
+fun MainScreenRoot(
+    navController: NavController,
+    mainViewModel: MainViewModel = koinViewModel<MainViewModel>()
+) {
+    MainScreen(
+        timeRemaining = mainViewModel.timeRemaining.collectAsState(),
+        isRunning = mainViewModel.isRunning.collectAsState(),
+        timerValue = mainViewModel.timerValue.collectAsState(),
+        changeTimerValue = { mainViewModel.setInitialTime(it) },
+        timerStart = { mainViewModel.startTimer() },
+        timerPause = { mainViewModel.pauseTimer() }
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavController) {
-
-    val mainViewModel: MainViewModel = koinViewModel<MainViewModel>()
-
-    val time by mainViewModel.timeRemaining.collectAsState()
-    val isRunning by mainViewModel.isRunning.collectAsState()
+fun MainScreen(
+    timeRemaining: State<Long>,
+    isRunning: State<Boolean>,
+    timerValue: State<Long>,
+    changeTimerValue: (Long) -> Unit,
+    timerStart: () -> Unit,
+    timerPause: () -> Unit
+) {
 
     var isDrawerOpen by remember { mutableStateOf(false) }
 
@@ -45,7 +62,7 @@ fun MainScreen(navController: NavController) {
             Scaffold(
                 topBar = {
                     AnimatedVisibility(
-                        !isRunning,
+                        !isRunning.value,
                         enter = slideInVertically() + fadeIn(),
                         exit = slideOutVertically() + fadeOut()
                     ) {
@@ -97,13 +114,16 @@ fun MainScreen(navController: NavController) {
                         modifier = Modifier
                             .padding(25.dp)
                             .aspectRatio(1F),
-                        timeMillis = time,
-                        totalTime = mainViewModel.timerValue.value,
+                        timeMillis = timeRemaining,
+                        totalTime = timerValue,
                         isRunning = isRunning,
-                        onTimeChanged = { mainViewModel.setInitialTime(it) },
+                        onTimeChanged = {
+                            print("New time is: $it")
+                            changeTimerValue(it)
+                        },
                         onPlayPauseClicked = {
-                            if (isRunning) mainViewModel.pauseTimer()
-                            else mainViewModel.startTimer()
+                            if (isRunning.value) timerPause()
+                            else timerStart()
                         },
                     )
                 }
