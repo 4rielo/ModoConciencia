@@ -26,13 +26,6 @@ class LogListViewModel(
     fun addLog(log: LogItem) {
         viewModelScope.launch {
             try {
-//                val location = locationProvider.getCurrentLocation()
-//
-//                val geoTask = log.copy(
-//                    latitude = location?.coordinates?.latitude,
-//                    longitude = location?.coordinates?.longitude
-//                )
-
                 logRepository.addLog(log)
             } catch (_: Exception) {
                 //TODO: handle error/exception. Maybe report to Mixpannel or other service.
@@ -60,16 +53,6 @@ class LogListViewModel(
             }
         }
     }
-
-//    fun toggleTaskCompletion(taskId: String) {
-//        val index = _logs.value.indexOfFirst { it.id == taskId }
-//        if (index != -1) {
-//            _logs.value = _logs.value.toMutableList().apply {
-//                this[index] = this[index].copy(isCompleted = !this[index].isCompleted)
-//                updateTask(this[index])
-//            }
-//        }
-//    }
 
     fun getLogById(logId: String): LogItem? {
         return _logs.value.find { it.id == logId }

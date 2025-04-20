@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.ascarafia.modoconciencia.domain.model.LogItem
 
@@ -36,12 +37,17 @@ fun LogListItem(log: LogItem, onClick: () -> Unit) {
             Text(
                 text = log.title,
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.onPrimary,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
             Text(
                 text = log.body,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.onPrimary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                softWrap = true
             )
         }
     }

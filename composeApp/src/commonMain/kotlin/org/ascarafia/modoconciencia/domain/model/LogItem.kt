@@ -21,3 +21,7 @@ data class LogItem(
         )
     }
 }
+
+fun LogItem?.orEmptyLog(): LogItem {
+    return LogItem(id = "", title = "", body = "", date = "")
+}

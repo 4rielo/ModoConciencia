@@ -1,6 +1,8 @@
 package org.ascarafia.modoconciencia.ui.log_list
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,7 +10,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -16,14 +21,20 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import modoconciencia.composeapp.generated.resources.Res
 import modoconciencia.composeapp.generated.resources.*
 import org.ascarafia.modoconciencia.domain.model.LogItem
+import org.ascarafia.modoconciencia.domain.model.orEmptyLog
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -87,33 +98,54 @@ fun LogDetailScreenRoot(
             }
         }
     ) { innerPadding ->
-        logsViewModel.getLogById(logId.orEmpty())?.let {
-            LogDetailScreen(
-                log = it,
-                modifier = Modifier
-                    .padding(innerPadding)
-            )
-        }?: navController.popBackStack()
+        val logItem = mutableStateOf(logsViewModel.getLogById(logId.orEmpty()).orEmptyLog())
+
+        LaunchedEffect(Unit) {
+            logsViewModel.getLogById(logId.orEmpty())?.let {
+                logItem.value = it
+            }?: navController.popBackStack()
+        }
+
+        LogDetailScreen(
+            log = logItem,
+            modifier = Modifier
+                .padding(innerPadding)
+        )
     }
 }
 
 @Composable
 fun LogDetailScreen(
-    log: LogItem,
+    log: State<LogItem>,
     modifier: Modifier
 ) {
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(MaterialTheme.colorScheme.primaryContainer)
+                    .padding(8.dp)
+            ) {
+                Text(
+                    text = log.value.date,
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+
+            Spacer(Modifier.width(16.dp))
+
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
@@ -122,9 +154,12 @@ fun LogDetailScreen(
                     .weight(1f)
             ) {
                 Text(
-                    text = log.title,
+                    text = log.value.title,
                     style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    overflow = TextOverflow.Ellipsis,
+                    softWrap = true,
+                    maxLines = 1
                 )
             }
         }
@@ -139,23 +174,9 @@ fun LogDetailScreen(
                 .padding(8.dp)
         ) {
             Text(
-                text = log.body,
+                text = log.value.body,
                 color = MaterialTheme.colorScheme.onPrimary
             )
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-//        if (log.latitude != null) {
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .clip(RoundedCornerShape(10.dp))
-//                    .background(MaterialTheme.colorScheme.tertiaryContainer)
-//                    .padding(8.dp)
-//            ) {
-//                Text(text = "Dónde fué registrada la tarea: ${log.latitude} ${log.longitude}")
-//            }
-//        }
     }
 }

@@ -68,6 +68,8 @@ kotlin {
 
             implementation(libs.jetbrains.compose.navigation)
 
+            implementation(libs.kotlinx.datetime)
+
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
