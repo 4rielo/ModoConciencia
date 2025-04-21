@@ -48,6 +48,8 @@ kotlin {
 
             implementation(libs.compass.permissions.mobile)
             implementation(libs.compass.geolocation.mobile)
+
+            implementation(libs.androidx.media3.exoplayer)
         }
 
         iosMain.dependencies {

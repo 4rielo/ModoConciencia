@@ -13,12 +13,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import modoconciencia.composeapp.generated.resources.*
+import org.ascarafia.modoconciencia.application.screen_controller.KeepScreenOnController
+import org.ascarafia.modoconciencia.application.screen_controller.KeepScreenOnProviderFactory
+import org.ascarafia.modoconciencia.domain.model.TimerGong
 import org.ascarafia.modoconciencia.ui.main_screen.views.DrawerMenu
+import org.ascarafia.modoconciencia.ui.main_screen.views.GongSoundSelector
+import org.ascarafia.modoconciencia.ui.main_screen.views.PlatformMainScreen
 import org.ascarafia.modoconciencia.ui.main_screen.views.TimerView
 import org.ascarafia.modoconciencia.ui.navigation.NavigationDrawer
 import org.ascarafia.modoconciencia.ui.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 
 @Composable
@@ -31,6 +38,9 @@ fun MainScreenRoot(
         isRunning = mainViewModel.isRunning.collectAsState(),
         timerValue = mainViewModel.timerValue.collectAsState(),
         changeTimerValue = { mainViewModel.setInitialTime(it) },
+        gongsList = mainViewModel.gongsOptions ,
+        selectedGong = mainViewModel.selectedGong.collectAsState(),
+        onGongSelected = { mainViewModel.setSelectedGong(it) },
         timerStart = { mainViewModel.startTimer() },
         timerPause = { mainViewModel.pauseTimer() },
         drawerMenu = { modifier -> DrawerMenu(modifier, navController) }
@@ -44,6 +54,9 @@ fun MainScreen(
     isRunning: State<Boolean>,
     timerValue: State<Long>,
     changeTimerValue: (Long) -> Unit,
+    gongsList: List<TimerGong>,
+    selectedGong: State<TimerGong>,
+    onGongSelected: (TimerGong) -> Unit,
     timerStart: () -> Unit,
     timerPause: () -> Unit,
     drawerMenu: @Composable (Modifier) -> Unit
@@ -94,17 +107,7 @@ fun MainScreen(
                             }
                         )
                     }
-                },
-
-//                floatingActionButton = {
-//                    FloatingActionButton(
-//                        onClick = {
-//                            navController.navigate("createTask")
-//                        }
-//                    ) {
-//                        Icon(Icons.Default.Add, contentDescription = "Agregar Tarea")
-//                    }
-//                }
+                }
             ) { innerPadding ->
 
                 paddingValues = innerPadding
@@ -116,6 +119,11 @@ fun MainScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
+                    PlatformMainScreen(isRunning.value) {
+
+                    }
+
                     TimerView(
                         modifier = Modifier
                             .padding(25.dp)
@@ -132,6 +140,14 @@ fun MainScreen(
                             else timerStart()
                         },
                     )
+
+                    if (!isRunning.value) {
+                        GongSoundSelector(
+                            gongsList = gongsList,
+                            selectedGong = selectedGong,
+                            onGongSelected = { onGongSelected(it) }
+                        )
+                    }
                 }
             }
         }
