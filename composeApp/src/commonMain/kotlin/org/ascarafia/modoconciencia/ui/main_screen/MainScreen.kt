@@ -23,6 +23,7 @@ import org.ascarafia.modoconciencia.ui.main_screen.views.TimerView
 import org.ascarafia.modoconciencia.ui.navigation.NavigationDrawer
 import org.ascarafia.modoconciencia.ui.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -152,4 +153,21 @@ fun MainScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun MainScreenPreview() {
+    MainScreen(
+        timeRemaining= mutableStateOf(1000),
+        isRunning= mutableStateOf(true),
+        timerValue= mutableStateOf(20000),
+        changeTimerValue= {  },
+        gongsList= emptyList(),
+        selectedGong= mutableStateOf(TimerGong(gongSound = "", gongImage = "")),
+        onGongSelected= {},
+        timerStart= {  },
+        timerPause= { },
+        drawerMenu= {}
+    )
 }

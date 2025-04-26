@@ -14,7 +14,6 @@ import org.ascarafia.modoconciencia.ui.theme.AppTheme
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-@Preview
 fun App() {
     val navController = rememberNavController()
     val logsViewModel: LogListViewModel = koinViewModel<LogListViewModel>()
