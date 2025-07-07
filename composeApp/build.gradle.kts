@@ -50,11 +50,17 @@ kotlin {
             implementation(libs.compass.geolocation.mobile)
 
             implementation(libs.androidx.media3.exoplayer)
+
+            implementation(libs.firebase.auth)
+            implementation(libs.firebase.ui.auth)
         }
 
         iosMain.dependencies {
             implementation(libs.compass.permissions.mobile)
             implementation(libs.compass.geolocation.mobile)
+
+            implementation(libs.firebase.auth)
+            implementation(libs.firebase.ui.auth)
         }
 
         commonMain.dependencies {
@@ -82,9 +88,7 @@ kotlin {
             implementation(libs.compass.geolocation)
 
             implementation(libs.coil.svg)
-//            implementation(libs.accompanist.pager)
-//            implementation(libs.accompanist.pager.indicators)
-//            implementation(libs.accompanist.snapper)
+
         }
 
         desktopMain.dependencies {

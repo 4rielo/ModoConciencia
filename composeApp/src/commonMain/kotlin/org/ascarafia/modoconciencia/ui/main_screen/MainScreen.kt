@@ -11,6 +11,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.navigation.NavController
 import modoconciencia.composeapp.generated.resources.*
 import org.ascarafia.modoconciencia.application.screen_controller.KeepScreenOnController
@@ -65,6 +67,34 @@ fun MainScreen(
 
     var isDrawerOpen by remember { mutableStateOf(false) }
     var paddingValues: PaddingValues? = null
+
+    LaunchedEffect(Unit) {
+        println("*** Simple Launch Effect with Unit parameter")
+    }
+
+    DisposableEffect(Unit) {
+        println("*** Disposable Effect with Unit parameter")
+
+        onDispose {
+            println("*** Disposable effect - onDispose")
+        }
+    }
+
+    LifecycleResumeEffect(Unit) {
+        println("**** ResumeEffect")
+
+        onPauseOrDispose {
+            println("**** Resume effect, onPauseOrDispose")
+        }
+    }
+
+    LifecycleStartEffect(Unit) {
+        println("*** Start Effect")
+
+        onStopOrDispose {
+            println("***** Start Effect, onPause or dispose")
+        }
+    }
 
     AppTheme {
         NavigationDrawer(

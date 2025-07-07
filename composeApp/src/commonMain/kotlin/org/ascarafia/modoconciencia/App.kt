@@ -22,7 +22,7 @@ fun App() {
         NavHost(navController = navController, startDestination = "mainScreen") {
             composable("mainScreen") {
                 MainScreenRoot(navController)
-                print("MainScreen loaded")
+                print("*** MainScreen loaded")
             }
 
             composable("bitacora") {

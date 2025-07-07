@@ -1,6 +1,6 @@
 [versions]
 accompanistPager = "0.34.0"
-agp = "8.5.2"
+agp = "8.10.0"
 android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
@@ -14,6 +14,8 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 coilSvg = "3.0.4"
 compose-multiplatform = "1.7.3"
+firebaseAuth = "1.7.1"
+firebaseUiAuth = "9.0.0"
 junit = "4.13.2"
 kotlin = "2.1.10"
 kotlinx-coroutines = "1.10.1"
@@ -42,6 +44,8 @@ accompanist-snapper = { module = "com.google.accompanist:accompanist-snapper", v
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3Exoplayer" }
 coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coilSvg" }
+firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebaseAuth" }
+firebase-ui-auth = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
