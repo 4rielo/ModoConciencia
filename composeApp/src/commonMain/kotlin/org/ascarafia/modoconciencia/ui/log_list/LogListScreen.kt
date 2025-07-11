@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.EditNote
@@ -14,12 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import kotlinx.coroutines.flow.MutableStateFlow
 import modoconciencia.composeapp.generated.resources.Res
-import modoconciencia.composeapp.generated.resources.create_task_go_back
-import modoconciencia.composeapp.generated.resources.log_list_title
+import modoconciencia.composeapp.generated.resources.*
 import org.ascarafia.modoconciencia.domain.model.LogItem
 import org.ascarafia.modoconciencia.ui.log_list.views.LogListItem
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +37,7 @@ fun LogsListScreenRoot(
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.create_task_go_back),
+                            contentDescription = stringResource(Res.string.create_log_go_back),
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
@@ -120,4 +122,15 @@ fun LogListScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun LogListScreenPreview() {
+    val logList = MutableStateFlow<List<LogItem>>(emptyList())
+    LogListScreen(
+        modifier = Modifier,
+        logsList = logList.collectAsStateWithLifecycle(),
+        openLogDetail = {}
+    )
 }

@@ -5,11 +5,11 @@
 
     <string name="log_list_title">Bitácora</string>
 
-    <string name="task_detail_title">Detalle de la Tarea: </string>
+    <string name="log_detail_title">Detalle de la Bitácora: </string>
 
-    <string name="create_task_screen_title">Crea una nueva tarea: </string>
-    <string name="create_task_add_title">Título:</string>
-    <string name="create_task_add_description">Descripción:</string>
-    <string name="create_task_save_new_task">Guardar</string>
-    <string name="create_task_go_back">Volver </string>
+    <string name="create_log_screen_title">Crea una nueva bitácora: </string>
+    <string name="create_log_add_title">Título:</string>
+    <string name="create_log_add_description">Descripción:</string>
+    <string name="create_log_save_new_task">Guardar</string>
+    <string name="create_log_go_back">Volver </string>
 </resources>

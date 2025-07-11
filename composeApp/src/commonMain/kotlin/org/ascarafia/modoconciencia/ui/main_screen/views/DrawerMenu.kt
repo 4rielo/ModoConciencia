@@ -23,6 +23,7 @@ fun DrawerMenu(modifier: Modifier = Modifier, navController: NavController) {
                 contentDescription = "Create new Log",
                 tint = MaterialTheme.colorScheme.onSecondary,
             )
+            Spacer(Modifier.width(5.dp))
             Text(
                 text = "Bitácora",
                 color = MaterialTheme.colorScheme.onSecondary,
@@ -35,9 +36,9 @@ fun DrawerMenu(modifier: Modifier = Modifier, navController: NavController) {
 
         Spacer(Modifier.height(8.dp))
 
-        Text(
-            "Opción 2",
-            color = MaterialTheme.colorScheme.onSecondary)
-        Spacer(Modifier.height(16.dp))
+//        Text(
+//            "Opción 2",
+//            color = MaterialTheme.colorScheme.onSecondary)
+//        Spacer(Modifier.height(16.dp))
     }
 }

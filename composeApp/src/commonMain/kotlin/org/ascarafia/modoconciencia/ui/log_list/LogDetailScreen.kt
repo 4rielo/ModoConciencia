@@ -1,16 +1,7 @@
 package org.ascarafia.modoconciencia.ui.log_list
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -22,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
@@ -63,7 +53,7 @@ fun LogDetailScreenRoot(
                 ),
                 title = {
                     Text(
-                        text = stringResource(Res.string.task_detail_title),
+                        text = stringResource(Res.string.log_detail_title),
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 },
@@ -76,7 +66,7 @@ fun LogDetailScreenRoot(
                     ) {
                         Icon(
                             Icons.Default.Delete,
-                            contentDescription = "Delete task",
+                            contentDescription = "Delete Log",
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }

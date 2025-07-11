@@ -39,7 +39,7 @@ fun CreateLogScreenRoot(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
-                            Icons.Default.ArrowBack, contentDescription = stringResource(Res.string.create_task_go_back),
+                            Icons.Default.ArrowBack, contentDescription = stringResource(Res.string.create_log_go_back),
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
@@ -50,7 +50,7 @@ fun CreateLogScreenRoot(
                 ),
                 title = {
                     Text(
-                        stringResource(Res.string.create_task_screen_title),
+                        stringResource(Res.string.create_log_screen_title),
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
@@ -126,7 +126,7 @@ fun CreateLogScreen(
                     }
             ) {
                 Text(
-                    text = stringResource(Res.string.create_task_save_new_task),
+                    text = stringResource(Res.string.create_log_save_new_task),
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
@@ -155,7 +155,7 @@ fun CreateLogScreen(
             ),
             onValueChange = { title = it },
             maxLines = 1,
-            label = { Text(stringResource(Res.string.create_task_add_title)) }
+            label = { Text(stringResource(Res.string.create_log_add_title)) }
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -178,7 +178,7 @@ fun CreateLogScreen(
                 unfocusedIndicatorColor = MaterialTheme.colorScheme.onPrimary
             ),
             onValueChange = { body = it },
-            label = { Text(stringResource(Res.string.create_task_add_description)) }
+            label = { Text(stringResource(Res.string.create_log_add_description)) }
         )
     }
 }

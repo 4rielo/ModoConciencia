@@ -11,6 +11,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.navigation.NavController
 import modoconciencia.composeapp.generated.resources.*
 import org.ascarafia.modoconciencia.application.screen_controller.KeepScreenOnController
@@ -113,6 +115,26 @@ fun MainScreen(
 
                 paddingValues = innerPadding
 
+                LaunchedEffect(Unit) {
+                    println("**** LaunchEffect")
+                }
+
+                LifecycleStartEffect(Unit) {
+                    println("**** Launch Start Effect")
+
+                    onStopOrDispose {
+                        println("**** Start Effect, onStopOrDispose")
+                    }
+                }
+
+                LifecycleResumeEffect(Unit) {
+                    println("**** Resume Effect")
+
+                    onPauseOrDispose {
+                        println("Resume Effect Pause or Disposed")
+                    }
+                }
+
                 Column (
                     modifier = Modifier
                         .padding(innerPadding)
@@ -133,7 +155,6 @@ fun MainScreen(
                         totalTime = timerValue,
                         isRunning = isRunning,
                         onTimeChanged = {
-                            print("New time is: $it")
                             changeTimerValue(it)
                         },
                         onPlayPauseClicked = {
