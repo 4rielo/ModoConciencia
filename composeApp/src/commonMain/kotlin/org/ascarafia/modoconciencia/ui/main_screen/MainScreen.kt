@@ -15,8 +15,6 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.navigation.NavController
 import modoconciencia.composeapp.generated.resources.*
-import org.ascarafia.modoconciencia.application.screen_controller.KeepScreenOnController
-import org.ascarafia.modoconciencia.application.screen_controller.KeepScreenOnProviderFactory
 import org.ascarafia.modoconciencia.domain.model.TimerGong
 import org.ascarafia.modoconciencia.ui.main_screen.views.DrawerMenu
 import org.ascarafia.modoconciencia.ui.main_screen.views.GongSoundSelector
@@ -26,9 +24,7 @@ import org.ascarafia.modoconciencia.ui.navigation.NavigationDrawer
 import org.ascarafia.modoconciencia.ui.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.parameter.parametersOf
 
 
 @Composable

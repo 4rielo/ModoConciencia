@@ -1,8 +1,6 @@
 package org.ascarafia.modoconciencia.application.di
 
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import org.ascarafia.modoconciencia.application.location.LocationProvider
-import org.ascarafia.modoconciencia.application.location.LocationProviderFactory
 import org.ascarafia.modoconciencia.data.database.DataBaseFactory
 import org.ascarafia.modoconciencia.data.database.LogDatabase
 import org.ascarafia.modoconciencia.domain.repository.LogRepository
@@ -18,7 +16,7 @@ val appModules: List<Module> get() = sharedModules + platformModule
 
 expect val platformModule: Module
 
-val sharedModules: List<Module> get() = listOf( viewModelsModule, dataBaseModule, repositoryModule, hardwareModule )
+val sharedModules: List<Module> get() = listOf( viewModelsModule, dataBaseModule, repositoryModule )
 
 val viewModelsModule = module {
     viewModelOf(::LogListViewModel)
@@ -38,10 +36,4 @@ val dataBaseModule = module {
 
 val repositoryModule = module {
     singleOf(::LogRepositoryImpl).bind<LogRepository>()
-}
-
-val hardwareModule = module {
-    single {
-        get<LocationProviderFactory>().create()
-    }.bind<LocationProvider>()
 }

@@ -46,15 +46,7 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
 
-            implementation(libs.compass.permissions.mobile)
-            implementation(libs.compass.geolocation.mobile)
-
             implementation(libs.androidx.media3.exoplayer)
-        }
-
-        iosMain.dependencies {
-            implementation(libs.compass.permissions.mobile)
-            implementation(libs.compass.geolocation.mobile)
         }
 
         commonMain.dependencies {
@@ -78,8 +70,6 @@ kotlin {
 
             implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
-
-            implementation(libs.compass.geolocation)
 
             implementation(libs.coil.svg)
 //            implementation(libs.accompanist.pager)
@@ -106,8 +96,8 @@ android {
         applicationId = "org.ascarafia.modoconciencia"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.0.0"
     }
     packaging {
         resources {

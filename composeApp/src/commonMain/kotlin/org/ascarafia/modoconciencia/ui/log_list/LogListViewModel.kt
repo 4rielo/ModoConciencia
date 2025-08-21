@@ -4,13 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.ascarafia.modoconciencia.application.location.LocationProvider
 import org.ascarafia.modoconciencia.domain.model.LogItem
 import org.ascarafia.modoconciencia.domain.repository.LogRepository
 
 class LogListViewModel(
     private val logRepository: LogRepository,
-    private val locationProvider: LocationProvider
 ): ViewModel() {
     private val _logs = MutableStateFlow<List<LogItem>>(emptyList())
     val logs = _logs.asStateFlow()
