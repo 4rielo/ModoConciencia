@@ -1,4 +1,4 @@
-package org.ascarafia.modoconciencia.ui.theme
+package org.ascarafia.modoconciencia.ui.util.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.text.selection.TextSelectionColors

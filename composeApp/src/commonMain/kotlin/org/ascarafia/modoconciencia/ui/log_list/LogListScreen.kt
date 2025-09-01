@@ -20,6 +20,8 @@ import modoconciencia.composeapp.generated.resources.Res
 import modoconciencia.composeapp.generated.resources.*
 import org.ascarafia.modoconciencia.domain.model.LogItem
 import org.ascarafia.modoconciencia.ui.log_list.views.LogListItem
+import org.ascarafia.modoconciencia.ui.navigation.CreateLogScreenIndex
+import org.ascarafia.modoconciencia.ui.navigation.LogDetailScreenIndex
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -27,69 +29,19 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LogsListScreenRoot(
+    modifier: Modifier,
     navController: NavController,
-    logsViewModel: LogListViewModel = koinViewModel()
+    logsViewModel: LogListViewModel
 ) {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.create_log_go_back),
-                            tint = MaterialTheme.colorScheme.onPrimary
-                        )
-                    }
-                },
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Text(
-                        stringResource(Res.string.log_list_title),
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navController.navigate("createLog/{}")
-                },
-                containerColor = MaterialTheme.colorScheme.primaryContainer
-            ) {
-                Column (
-                    modifier = Modifier
-                        .padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        Icons.Filled.EditNote,
-                        contentDescription = "Create new Log",
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                    )
-                    Text(
-                        "Nuevo registro",
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            }
-        }
-    ) { innerPadding ->
-        LaunchedEffect(Unit) {
-            logsViewModel.getDatabaseLogs()
-        }
-
-        LogListScreen(
-            modifier = Modifier
-                .padding(innerPadding),
-            logsList = logsViewModel.logs.collectAsStateWithLifecycle(),
-            openLogDetail = { logId -> navController.navigate("logDetail/$logId") }
-        )
+    LaunchedEffect(Unit) {
+        logsViewModel.getDatabaseLogs()
     }
+
+    LogListScreen(
+        modifier = modifier,
+        logsList = logsViewModel.logs.collectAsStateWithLifecycle(),
+        openLogDetail = { logId -> navController.navigate(LogDetailScreenIndex(logId) ) }
+    )
 }
 
 @Composable

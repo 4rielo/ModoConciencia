@@ -7,9 +7,12 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeHotReload)
 
-    alias(libs.plugins.room)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
+
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -61,6 +64,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
 
             implementation(libs.jetbrains.compose.navigation)
+            implementation(libs.jetbrains.serialization)
 
             implementation(libs.kotlinx.datetime)
 
@@ -72,9 +76,8 @@ kotlin {
             implementation(libs.sqlite.bundled)
 
             implementation(libs.coil.svg)
-//            implementation(libs.accompanist.pager)
-//            implementation(libs.accompanist.pager.indicators)
-//            implementation(libs.accompanist.snapper)
+
+            implementation(libs.material3.adaptive)
         }
 
         desktopMain.dependencies {
@@ -83,7 +86,12 @@ kotlin {
         }
 
         dependencies {
-            ksp(libs.androidx.room.compiler)
+            add("kspAndroid", libs.androidx.room.compiler)
+            add("kspIosX64", libs.androidx.room.compiler)
+            add("kspIosArm64", libs.androidx.room.compiler)
+            add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+            add("kspDesktop", libs.androidx.room.compiler)
+        //            ksp(libs.androidx.room.compiler)
         }
     }
 }

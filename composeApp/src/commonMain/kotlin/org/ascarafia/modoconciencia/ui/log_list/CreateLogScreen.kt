@@ -33,43 +33,17 @@ fun CreateLogScreenRoot(
     logId: String?,
     logsViewModel: LogListViewModel = koinViewModel()
 ) {
-    Scaffold (
-        topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            Icons.Default.ArrowBack, contentDescription = stringResource(Res.string.create_log_go_back),
-                            tint = MaterialTheme.colorScheme.onPrimary
-                        )
-                    }
-                },
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                ),
-                title = {
-                    Text(
-                        stringResource(Res.string.create_log_screen_title),
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            )
+    val log = logsViewModel.getLogById(logId.orEmpty())
+    CreateLogScreen(
+        Modifier,
+        log = log,
+        addNewLog = { newLog ->
+            logsViewModel.addLog(newLog)
+            navController.popBackStack()
         }
-
-    ) { innerPadding ->
-        val log = logsViewModel.getLogById(logId.orEmpty())
-        CreateLogScreen(
-            Modifier
-                .padding(innerPadding),
-            log = log,
-            addNewLog = { newLog ->
-                logsViewModel.addLog(newLog)
-                navController.popBackStack()
-            }
-        )
-    }
+    )
 }
+
 
 @Composable
 fun CreateLogScreen(
