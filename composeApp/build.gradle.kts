@@ -140,8 +140,13 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.ascarafia.modoconciencia"
+            packageName = "Timer Conciente"
             packageVersion = "1.0.0"
+
+            macOS {
+                bundleID = "org.ascarafia.modoconciencia"
+                dockName = "Timer Conciente"
+            }
         }
     }
 }
