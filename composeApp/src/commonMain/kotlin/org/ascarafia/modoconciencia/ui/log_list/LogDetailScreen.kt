@@ -25,6 +25,7 @@ import modoconciencia.composeapp.generated.resources.Res
 import modoconciencia.composeapp.generated.resources.*
 import org.ascarafia.modoconciencia.domain.model.LogItem
 import org.ascarafia.modoconciencia.domain.model.orEmptyLog
+import org.ascarafia.modoconciencia.ui.navigation.CreateLogScreenIndex
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -33,75 +34,20 @@ import org.koin.compose.viewmodel.koinViewModel
 fun LogDetailScreenRoot(
     navController: NavController,
     logId: String?,
-    logsViewModel: LogListViewModel = koinViewModel()
+    logsViewModel: LogListViewModel
 ) {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            Icons.Default.ArrowBack,
-                            contentDescription = "Go Back",
-                            tint = MaterialTheme.colorScheme.onPrimary
-                        )
-                    }
-                },
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                ),
-                title = {
-                    Text(
-                        text = stringResource(Res.string.log_detail_title),
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            logsViewModel.deleteLog(logId = logId.orEmpty())
-                            navController.popBackStack()
-                        }
-                    ) {
-                        Icon(
-                            Icons.Default.Delete,
-                            contentDescription = "Delete Log",
-                            tint = MaterialTheme.colorScheme.onPrimary
-                        )
-                    }
-                }
-            )
-        },
-        floatingActionButton = {
-            IconButton(
-                onClick = {
-                    navController.navigate("createLog/$logId")
-                },
-                colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
-            ) {
-                Icon(
-                    Icons.Filled.Edit,
-                    contentDescription = "Create new Log",
-                    tint = MaterialTheme.colorScheme.onPrimary,
-                )
-            }
-        }
-    ) { innerPadding ->
-        val logItem = mutableStateOf(logsViewModel.getLogById(logId.orEmpty()).orEmptyLog())
+    val logItem = mutableStateOf(logsViewModel.getLogById(logId.orEmpty()).orEmptyLog())
 
-        LaunchedEffect(Unit) {
-            logsViewModel.getLogById(logId.orEmpty())?.let {
-                logItem.value = it
-            }?: navController.popBackStack()
-        }
-
-        LogDetailScreen(
-            log = logItem,
-            modifier = Modifier
-                .padding(innerPadding)
-        )
+    LaunchedEffect(Unit) {
+        logsViewModel.getLogById(logId.orEmpty())?.let {
+            logItem.value = it
+        }?: navController.popBackStack()
     }
+
+    LogDetailScreen(
+        log = logItem,
+        modifier = Modifier
+    )
 }
 
 @Composable

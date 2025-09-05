@@ -7,9 +7,12 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeHotReload)
 
-    alias(libs.plugins.room)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
+
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -61,6 +64,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
 
             implementation(libs.jetbrains.compose.navigation)
+            implementation(libs.jetbrains.serialization)
 
             implementation(libs.kotlinx.datetime)
 
@@ -72,18 +76,23 @@ kotlin {
             implementation(libs.sqlite.bundled)
 
             implementation(libs.coil.svg)
-//            implementation(libs.accompanist.pager)
-//            implementation(libs.accompanist.pager.indicators)
-//            implementation(libs.accompanist.snapper)
+
+            implementation(libs.material3.adaptive)
         }
 
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.mp3spi)
         }
 
         dependencies {
-            ksp(libs.androidx.room.compiler)
+            add("kspAndroid", libs.androidx.room.compiler)
+            add("kspIosX64", libs.androidx.room.compiler)
+            add("kspIosArm64", libs.androidx.room.compiler)
+            add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+            add("kspDesktop", libs.androidx.room.compiler)
+        //            ksp(libs.androidx.room.compiler)
         }
     }
 }
@@ -131,8 +140,13 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.ascarafia.modoconciencia"
+            packageName = "Timer Conciente"
             packageVersion = "1.0.0"
+
+            macOS {
+                bundleID = "org.ascarafia.modoconciencia"
+                dockName = "Timer Conciente"
+            }
         }
     }
 }

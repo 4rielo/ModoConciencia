@@ -32,6 +32,7 @@ import org.ascarafia.modoconciencia.domain.model.TimerGong
 
 @Composable
 fun GongSoundSelector(
+    modifier: Modifier = Modifier,
     gongsList: List<TimerGong>,
     selectedGong: State<TimerGong>,
     onGongSelected: (TimerGong) -> Unit
@@ -54,9 +55,9 @@ fun GongSoundSelector(
         }
     }
     Row (
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-
         Button(
             onClick = {
                 val target = state.firstVisibleItemIndex - 1
@@ -78,6 +79,7 @@ fun GongSoundSelector(
                     .scale(3F)
             )
         }
+
         LazyRow(
             state = state,
             verticalAlignment = Alignment.CenterVertically,

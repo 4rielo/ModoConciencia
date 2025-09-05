@@ -1,4 +1,4 @@
-package org.ascarafia.modoconciencia.ui.main_screen.views
+package org.ascarafia.modoconciencia.ui.navigation.top_bar
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import org.ascarafia.modoconciencia.ui.navigation.LogListScreenIndex
 
 @Composable
 fun DrawerMenu(modifier: Modifier = Modifier, navController: NavController) {
@@ -29,7 +30,7 @@ fun DrawerMenu(modifier: Modifier = Modifier, navController: NavController) {
                 color = MaterialTheme.colorScheme.onSecondary,
                 modifier = Modifier
                     .clickable {
-                        navController.navigate("bitacora")
+                        navController.navigate(LogListScreenIndex)
                     }
             )
         }

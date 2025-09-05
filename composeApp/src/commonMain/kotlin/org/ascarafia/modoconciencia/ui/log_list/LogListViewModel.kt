@@ -17,6 +17,7 @@ class LogListViewModel(
         logRepository.getLogs()
             .onEach { logs: List<LogItem> ->
                 _logs.value = logs
+                println("***** Fetching log: $logs from database")
             }
             .launchIn(viewModelScope)
     }
