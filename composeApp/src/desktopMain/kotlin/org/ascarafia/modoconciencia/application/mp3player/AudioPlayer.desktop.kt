@@ -1,32 +1,48 @@
 package org.ascarafia.modoconciencia.application.mp3player
 
-import java.io.File
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import modoconciencia.composeapp.generated.resources.Res
+import java.io.ByteArrayInputStream
 import javax.sound.sampled.AudioFormat
 import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.AudioSystem
-import javax.sound.sampled.AudioSystem.getAudioInputStream
 import javax.sound.sampled.Line
 import javax.sound.sampled.SourceDataLine
 
 actual class AudioPlayer {
+    var job: Job? = null
     actual fun playSound(soundFile: String) {
-        val file = File(soundFile)
-        getAudioInputStream(file).use { `in` ->
+
+        job = CoroutineScope(Dispatchers.IO).launch {
+            playBiteArrayFrom(soundFile)
+        }
+    }
+
+    actual fun release() {
+    }
+
+    private suspend fun playBiteArrayFrom(soundFile: String) {
+        val bytes = Res.readBytes(soundFile)
+
+        // Necesitamos alimentar un AudioInputStream con estos bytes:
+        val bais = ByteArrayInputStream(bytes)
+        AudioSystem.getAudioInputStream(bais).use { `in` ->
             val outFormat = getOutFormat(`in`.format)
             val info = Line.Info(SourceDataLine::class.java)
             AudioSystem.getLine(info).use { line ->
                 (line as? SourceDataLine)?.let { l ->
                     l.open(outFormat)
                     l.start()
-                    stream(getAudioInputStream(outFormat, `in`), l)
+                    stream(AudioSystem.getAudioInputStream(outFormat, `in`), l)
                     l.drain()
                     l.stop()
+                    job = null
                 }
             }
         }
-    }
-
-    actual fun release() {
     }
 
     private fun getOutFormat(inFormat: AudioFormat): AudioFormat {
